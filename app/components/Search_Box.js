@@ -11,9 +11,9 @@ const Search_Box = ({ setQuery, setResults }) => {
     const parts = pathname.split("/");
 
     if (parts[1] === "categories" && parts[2]) {
-      setCategoryId(parts[2]);   // ID ضمن صفحة كاتيغوري
+      setCategoryId(parts[2]);   
     } else {
-      setCategoryId(null);       // بحث عام
+      setCategoryId(null);      
     }
   }, [pathname]);
 

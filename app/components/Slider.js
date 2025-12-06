@@ -28,8 +28,7 @@ const Slider = ({ items, id }) => {
           </SwiperSlide>
         ))}
 
-        {/* عرض المزيد فقط إذا عدد العناصر أكبر من 8 */}
-        {items.length > 8 && (
+        {items.length > 7 && (
           <SwiperSlide>
             <Link href={`/categories/${id}`} style={{ textDecoration: "none" }}>
               <div className="See_More">

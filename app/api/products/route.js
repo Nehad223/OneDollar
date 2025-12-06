@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 export const runtime = "nodejs";
-// جلب جميع المنتجات مع بيانات الكاتيجوري
 export async function GET() {
   const products = await prisma.product.findMany({
     include: { category: true },
@@ -8,7 +7,6 @@ export async function GET() {
   return Response.json(products);
 }
 
-// إضافة منتج جديد
 export async function POST(req) {
   const data = await req.json();
 

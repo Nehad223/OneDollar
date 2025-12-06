@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com'], // ضيف هنا كل الـ hostnames اللي بتحمل منهم الصور
+    domains: ['res.cloudinary.com'],  
   },
 }
 

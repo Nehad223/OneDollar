@@ -18,14 +18,14 @@
     margin-top: 20px;
 }
 
-/* للموبايل */
+
 @media(max-width: 900px) {
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* للشاشات الصغيرة جداً */
+
 @media(max-width: 500px) {
   .grid-container {
     grid-template-columns: repeat(1, 1fr);

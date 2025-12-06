@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import React from "react";
 import Card_Slider from './../../components/Card_Slider';
 import { CldUploadWidget } from "next-cloudinary"; 
-import "./../admin.css"; // ← تأكد المسار مضبوط
+import "./../admin.css"; 
 
-// Toast imports
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,7 +12,6 @@ const Edit = () => {
   const [categories, setCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // NEW: state لحذف الكاتيجوري
   const [isDeleteCatOpen, setIsDeleteCatOpen] = useState(false);
   const [categoryToDelete, setCategoryToDelete] = useState(null);
 
@@ -52,7 +50,7 @@ const Edit = () => {
 
       setIsModalOpen(false);
 
-      // نفس جلب الكاتيجوريز مثل ما كان عندك، بس بعد ما تم الحفظ نعرض توست نجاح
+
       fetch("/api/categories")
         .then(res => res.json())
         .then(data => {
@@ -82,28 +80,25 @@ const Edit = () => {
     }
   };
 
-  // NEW: فتح نافذة تأكيد حذف الكاتيغوري
+
   const openDeleteCategory = (category) => {
     setCategoryToDelete(category);
     setIsDeleteCatOpen(true);
   };
 
-  // NEW: تنفيذ الحذف
   const confirmDeleteCategory = async () => {
     if (!categoryToDelete) return;
     const id = categoryToDelete.id;
 
     try {
       const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
-      // حدّث الواجهة محلياً - نفلتر الكاتيجوري من الستايت
+
       setCategories(prev => prev.filter(c => c.id !== id));
-      // اغلق المودال
       setIsDeleteCatOpen(false);
       setCategoryToDelete(null);
       toast.success("تم حذف الفئة بنجاح");
     } catch (err) {
       console.error(err);
-      // استبدلت ال-alert بتوست عشان الواجهة متناسقة
       toast.error("ما قدرنا نحذف الكاتيجوري. جرّب لاحقاً.");
     }
   };
@@ -115,16 +110,14 @@ const Edit = () => {
         <div key={category.id} className="category-block">
           <div className="category-header">
 
-            {/* زر الحذف الصغير - مخفي إلا عند الهوفر على whole category-block */}
+        
             <div className="category-actions">
               <button
                 className="cat-delete-btn"
                 onClick={(e) => { e.stopPropagation(); openDeleteCategory(category); }}
                 title="حذف الكاتيجوري"
                 aria-label={`حذف ${category.name}`}
-              >
-                {/* أيقونة سلة بسيطة (SVG) */}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+              >                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path d="M3 6h18M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6M10 11v6M14 11v6M9 6l1-3h4l1 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
@@ -154,7 +147,7 @@ const Edit = () => {
         </div>
       ))}
 
-      {/* existing edit modal */}
+
       {isModalOpen && (
         <div className="modal-back">
           <div className="modal-box">
@@ -175,7 +168,7 @@ const Edit = () => {
                   ...prev,
                   imageUrl: res.info.secure_url,
                 }));
-                toast.success("تم رفع الصورة بنجاح"); // اشعار بعد رفع الصورة
+                toast.success("تم رفع الصورة بنجاح"); 
               }}
             >
               {({ open }) => (
@@ -200,7 +193,7 @@ const Edit = () => {
         </div>
       )}
 
-      {/* NEW: مودال تأكيد حذف الكاتيجوري */}
+
 {isDeleteCatOpen && categoryToDelete && (
   <div className="modal-back" role="dialog" aria-modal="true">
     <div className="confirm-box">
@@ -238,7 +231,7 @@ const Edit = () => {
   </div>
 )}
 
-      {/* Toast container (ما بتغير شي بالـ UI لو بتحطوه هون) */}
+  
       <ToastContainer position="top-center" autoClose={3000} />
 
     </div>

@@ -11,21 +11,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { Cairo, Roboto } from "next/font/google";
-
+import GlobalLoader from "./GlobalLoader";
 const cairo = Cairo({ subsets: ["arabic"], weight: ["400","500","600","700"], variable: "--font-arabic" });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-latin" });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/admin"); // شرط لاستثناء الأدمن
-
+  const isAdmin = pathname.startsWith("/admin");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
   return (
     <html>
       <body className={`${cairo.variable} ${roboto.variable}`}>
-        {/* هيدر و search box والـ toast خاص بالواجهة العامة فقط */}
+          
         {!isAdmin && (
           <>
             <div className="container">

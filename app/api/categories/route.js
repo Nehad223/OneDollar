@@ -45,7 +45,7 @@ export async function POST(req) {
     select: {
       id: true,
       name: true,
-      products: true, // سيظهر كمصفوفة فارغة عند الإنشاء
+      products: true, 
     },
   });
 

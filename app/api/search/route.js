@@ -12,7 +12,7 @@ export async function GET(req) {
 
     const where = {
       name: {
-        contains: q,   // بدون mode
+        contains: q, 
       },
     };
 

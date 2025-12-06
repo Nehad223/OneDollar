@@ -1,6 +1,4 @@
-/* ===========================
-   Search Box
-=========================== */
+
 .Search_Box {
   width: 100% !important;
   position: relative;
@@ -11,7 +9,7 @@
 
 .Search_Box input {
   width: 100% !important;
-  padding: 10px 40px 10px 10px; /* مساحة للأيقونة */
+  padding: 10px 40px 10px 10px;
   border: 1px solid #181818;
   background-color: #181818;
   color: #fff;
@@ -34,16 +32,13 @@
   border: 1px solid #181818;
 }
 
-/* ===========================
-   Slider
-=========================== */
 .slider-wrapper {
   width: 100%;
   position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
-  direction: rtl; /* مهم جداً */
+  direction: rtl;
 }
 
 .arrow {
@@ -72,7 +67,7 @@
 .slider-track {
   display: flex;
   transition: 0.4s ease;
-  direction: ltr; /* يمنع قلب ترتيب العناصر */
+  direction: ltr;
 }
 
 .slide-item {
@@ -114,9 +109,7 @@
 }
 
 
-/* ===========================
-   Body & Titles
-=========================== */
+
 
 .Body_Main h1,.See_More,.See_More span,.categories h1  {
   text-align: right;
@@ -134,12 +127,11 @@ margin: 0 !important;
 .Body_Main h1,.categories h1 {
   font-weight: 600;
 }
-/* تأكد السلايدر إلو position */
+
 .swiper {
   position: relative;
 }
 
-/* اللون والحجم */
 .swiper-button-next,
 .swiper-button-prev {
   color: #CDAB50 !important;
@@ -150,7 +142,6 @@ margin: 0 !important;
   font-size: 24px !important;
 }
 
-/* تنظيم أماكن الأسهم */
 .swiper-button-next {
   left: 0 !important;
   right: auto !important;
@@ -161,9 +152,6 @@ margin: 0 !important;
   left: auto !important;
 }
 
-/* ===========================
-   Card Slider
-=========================== */
 .card-slider {
   width: 100%;
   max-width: 300px;
@@ -180,7 +168,7 @@ margin: 0 !important;
   margin: 0 auto;
   margin-bottom: 20px !important;
 
-  /* 🔥 الشادو */
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), 
               0 0 10px rgba(205, 171, 80, 0.15);
 }
@@ -189,7 +177,7 @@ margin: 0 !important;
 .card-image {
   width: 100%;
   height: 0;
-  padding-top: 70%; /* نسبة لتكون ريسپونسف */
+  padding-top: 70%;
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -207,9 +195,6 @@ margin: 0 !important;
   margin-top: 4px;
 }
 
-/* ===========================
-   Navbar
-=========================== */
 .navbar {
   display: flex;
   align-items: center;
@@ -227,9 +212,6 @@ margin: 0 !important;
   height: auto;
 }
 
-/* ===========================
-   Grid / Swiper Responsiveness
-=========================== */
 @media (max-width: 600px) {
   .card-slider {
     max-width: 90%;
@@ -250,13 +232,13 @@ margin: 0 !important;
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .slide-item {
-    flex: 0 0 calc(50% - 10px); /* عمودين */
+    flex: 0 0 calc(50% - 10px);  
   }
 }
 
 @media (min-width: 1025px) {
   .slide-item {
-    flex: 0 0 calc(33.33% - 10px); /* ثلاثة عناصر جنب بعض */
+    flex: 0 0 calc(33.33% - 10px); 
   }
 }
 
@@ -267,7 +249,7 @@ margin: 0 !important;
   direction: rtl;
 }
 
-/* شاشات أصغر */
+
 @media (max-width: 1024px) {
   .Grid_items {
     grid-template-columns: repeat(3, 1fr);
@@ -295,7 +277,7 @@ margin: 0 !important;
   overflow: hidden;
 }
 
-/* الطبقة الفعلية للصورة */
+
 .card-image img {
   position: absolute;
   inset: 0;
@@ -306,19 +288,17 @@ margin: 0 !important;
   transition: filter 0.6s ease, opacity 0.6s ease;
 }
 
-/* قبل التحميل */
 .card-image.loading img {
-  filter: blur(20px) brightness(0.4); /* 🔥 Blur + غامق */
+  filter: blur(20px) brightness(0.4); 
   opacity: 1;
 }
 
-/* بعد التحميل */
+
 .card-image.loaded img {
   filter: blur(0) brightness(1);
   opacity: 1;
 }
 
-/* خلفية غامقة قبل التحميل (تمنع الفراغ) */
 .card-image.loading {
-  background: #111; /* 🔥 خلفية داكنة */
+  background: #111;
 }

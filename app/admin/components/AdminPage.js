@@ -96,7 +96,6 @@ export default function AdminPage() {
         إضافة منتج
       </button>
 
-      {/* ==== CATEGORY MODAL ==== */}
       {isCatModalOpen && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -121,7 +120,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* ==== PRODUCT MODAL ==== */}
+
       {isProdModalOpen && (
         <div className="modal-overlay">
           <div className="modal-box">

@@ -1,12 +1,10 @@
 import prisma from "@/lib/prisma";
 export const runtime = "nodejs";
 
-// =================
-// GET
-// =================
+
 export async function GET(req, ctx) {
   try {
-    const { id } = await ctx.params; // لازم await
+    const { id } = await ctx.params;
 
     const product = await prisma.product.findUnique({
       where: { id: Number(id) },
@@ -24,12 +22,9 @@ export async function GET(req, ctx) {
   }
 }
 
-// =================
-// PUT
-// =================
 export async function PUT(req, ctx) {
   try {
-    const { id } = await ctx.params; // 🔥 هون كانت المشكلة
+    const { id } = await ctx.params;
     const body = await req.json();
 
     console.log("UPDATING ID:", id, body);
@@ -53,12 +48,10 @@ export async function PUT(req, ctx) {
   }
 }
 
-// =================
-// DELETE
-// =================
+
 export async function DELETE(req, ctx) {
   try {
-    const { id } = await ctx.params; // نفس المشكلة
+    const { id } = await ctx.params; 
 
     await prisma.product.delete({
       where: { id: Number(id) },

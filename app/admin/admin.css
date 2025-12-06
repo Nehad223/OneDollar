@@ -4,7 +4,7 @@
   font-size: clamp(10px, 5vw, 20px);
 
 }
-/* الـ layout العام */
+
 .Admin_Login.container {
   min-height: calc(100vh - 80px);
   display: flex;
@@ -14,12 +14,10 @@
   padding-top: 40px;
 }
 
-/* العنوان — ما لمستو */
 .Admin_Login h1 {
   margin-bottom: 10px;
 }
 
-/* الكرت الأساسي */
 .login-card {
   width: 100%;
   max-width: 420px;
@@ -34,7 +32,6 @@
   gap: 18px;
 }
 
-/* حقول الإدخال */
 .login-card input {
   width: 100%;
   padding: 14px 15px;
@@ -57,7 +54,7 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* زر الدخول */
+
 .login-card button {
   margin-top: 5px;
   padding: 14px;
@@ -103,7 +100,7 @@
   transform: translateY(-2px);
 }
 
-/* نافذة منبثقة */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -132,7 +129,7 @@
   text-align: center;
 }
 
-/* مدخلات */
+
 .modal-box input,
 .modal-box select {
   width: 100%;
@@ -149,7 +146,7 @@
   border-color: #cdab50;
 }
 
-/* أزرار */
+
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
@@ -181,7 +178,7 @@
   background: #b99845;
 }
 
-/* زر رفع صورة */
+
 .upload-btn {
   background: #333;
   color: white;
@@ -193,7 +190,6 @@
   background: #444;
 }
 
-/* أنيميشن */
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -213,7 +209,7 @@ display: flex;
   direction: rtl;
 }
 
-/* شاشات أصغر */
+
 @media (max-width: 1024px) {
   .Grid_items {
     grid-template-columns: repeat(3, 1fr);
@@ -236,7 +232,7 @@ display: flex;
     text-align: right;
     margin-top: 20px;
 }
-/* ===== Overlay Buttons (edit / delete) ===== */
+
 
 .admin-card-container {
   position: relative;
@@ -279,7 +275,7 @@ display: flex;
   color: white;
 }
 
-/* ===== Modal Style ===== */
+
 
 .modal-back {
   position: fixed;
@@ -363,7 +359,7 @@ display: flex;
   color: white;
 }
 
-/* لإزالة أسهم الزيادة والنقصان من input type="number" */
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -373,7 +369,7 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-/* ==== category header and small delete button ==== */
+
 .category-block {
   padding: 10px 0 20px;
   transition: background .12s ease;
@@ -389,27 +385,26 @@ input[type="number"] {
   padding: 4px;
 }
 
-/* title */
 .category-title {
   font-size: 18px;
   color: var(--accent);
   margin: 0;
 }
 
-/* actions wrapper - مخفي افتراضياً */
+
 .category-actions {
   opacity: 0;
   transition: opacity .18s ease, transform .18s ease;
   transform: translateY(-2px);
 }
 
-/* إظهار الأزرار لما نمر على البلوك عشان ما يبان دائماً */
+
 .category-block:hover .category-actions {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* زر صغير دائري للأيقونة */
+
 .cat-delete-btn {
   width: 36px;
   height: 36px;
@@ -430,7 +425,7 @@ input[type="number"] {
   transform: translateY(-2px);
 }
 
-/* ==== confirm delete modal ==== */
+
 .confirm-box {
   width: 100%;
   max-width: 440px;
@@ -465,7 +460,6 @@ input[type="number"] {
   gap: 10px;
 }
 
-/* confirm buttons */
 .confirm-btn {
   width: 50%;
   padding: 10px 12px;

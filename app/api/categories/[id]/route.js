@@ -1,9 +1,7 @@
 import prisma from "@/lib/prisma";
 export const runtime = "nodejs";
 
-// ========================================
-// GET CATEGORY
-// ========================================
+
 export async function GET(req, ctx) {
   try {
     const params = await ctx.params;
@@ -38,9 +36,6 @@ export async function GET(req, ctx) {
   }
 }
 
-// ========================================
-// UPDATE CATEGORY
-// ========================================
 export async function PUT(req, ctx) {
   try {
     const params = await ctx.params;
@@ -59,10 +54,6 @@ export async function PUT(req, ctx) {
     return Response.json({ error: "Server error" }, { status: 500 });
   }
 }
-
-// ========================================
-// DELETE CATEGORY
-// ========================================
 export async function DELETE(req, ctx) {
   try {
     const params = await ctx.params;

@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 
 function Navbar() {
   return (

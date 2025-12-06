@@ -7,12 +7,10 @@ export function middleware(request: NextRequest) {
 
   const isLoginPage = path === "/admin/login";
 
-  // If not authenticated and not on login page → redirect to login
   if (!token && !isLoginPage) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
-  // If authenticated and tries to access login page → redirect to dashboard
   if (token && isLoginPage) {
     return NextResponse.redirect(new URL("/admin", request.url));
   }
