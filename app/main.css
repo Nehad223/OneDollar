@@ -262,11 +262,6 @@ margin: 0 !important;
   }
 }
 
-@media (max-width: 480px) {
-  .Grid_items {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 
 .card-image {
   width: 100%;
