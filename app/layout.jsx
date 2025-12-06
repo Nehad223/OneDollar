@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
             results.length > 0 ? (
               <Grid_Items items={results} />
             ) : (
-              <div className="Search_Results empty">لا يوجد نتائج</div>
+              <div className="Search_Results empty">  </div>
             )
           ) : (
             children
