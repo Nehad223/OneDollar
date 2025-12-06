@@ -1,0 +1,33 @@
+.category {
+  width: 100%;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 25px;
+  width: 100%;
+  max-width: 1300px;
+}
+.categories h1{
+    color: #CDAB50;
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* للموبايل */
+@media(max-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* للشاشات الصغيرة جداً */
+@media(max-width: 500px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

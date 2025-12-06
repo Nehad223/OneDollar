@@ -1,0 +1,324 @@
+/* ===========================
+   Search Box
+=========================== */
+.Search_Box {
+  width: 100% !important;
+  position: relative;
+  box-sizing: border-box;
+  margin: 20 auto 50 auto;
+
+}
+
+.Search_Box input {
+  width: 100% !important;
+  padding: 10px 40px 10px 10px; /* مساحة للأيقونة */
+  border: 1px solid #181818;
+  background-color: #181818;
+  color: #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: right;
+  font-size: clamp(14px, 2vw, 16px);
+}
+
+.Search_Box .icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.Search_Box input:focus {
+  outline: none;
+  border: 1px solid #181818;
+}
+
+/* ===========================
+   Slider
+=========================== */
+.slider-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  direction: rtl; /* مهم جداً */
+}
+
+.arrow {
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-right: 6px;
+}
+
+.arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.slider-window {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  transition: 0.4s ease;
+  direction: ltr; /* يمنع قلب ترتيب العناصر */
+}
+
+.slide-item {
+  flex: 1 0 auto;
+  text-align: center;
+  background: #181818;
+  color: #fff;
+  margin: 0 5px;
+  padding: 20px 0;
+  border-radius: 10px;
+}
+
+.slide-item.more {
+  background: #303030;
+  border: 1px dashed #666;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.See_More {
+  background-color: transparent !important;
+  border: none !important;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  border: 1px solid #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: white;
+  background: #222;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.See_More:hover {
+  background: #333;
+}
+
+
+/* ===========================
+   Body & Titles
+=========================== */
+
+.Body_Main h1,.See_More,.See_More span,.categories h1  {
+  text-align: right;
+  color: #CDAB50 !important;
+  font-size: clamp(10px, 5vw, 20px);
+  font-weight: 500;
+  margin-top: 3vh;
+  margin-bottom: 20px;
+}
+.See_More span {
+margin: 0 !important;
+  font-size: clamp(10px, 5vw, 30px);
+
+}
+.Body_Main h1,.categories h1 {
+  font-weight: 600;
+}
+/* تأكد السلايدر إلو position */
+.swiper {
+  position: relative;
+}
+
+/* اللون والحجم */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #CDAB50 !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px !important;
+}
+
+/* تنظيم أماكن الأسهم */
+.swiper-button-next {
+  left: 0 !important;
+  right: auto !important;
+}
+
+.swiper-button-prev {
+  right: 0 !important;
+  left: auto !important;
+}
+
+/* ===========================
+   Card Slider
+=========================== */
+.card-slider {
+  width: 100%;
+  max-width: 300px;
+  background: #222;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #333;
+  box-sizing: border-box;
+  margin: 0 auto;
+  margin-bottom: 20px !important;
+
+  /* 🔥 الشادو */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), 
+              0 0 10px rgba(205, 171, 80, 0.15);
+}
+
+
+.card-image {
+  width: 100%;
+  height: 0;
+  padding-top: 70%; /* نسبة لتكون ريسپونسف */
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-text {
+  margin-top: 10px;
+  font-size: clamp(12px, 2vw, 16px);
+  color: #CDAB50;
+}
+
+.card-price {
+  font-size: clamp(12px, 2vw, 16px);
+  color: #CDAB50;
+  margin-top: 4px;
+}
+
+/* ===========================
+   Navbar
+=========================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar img {
+  max-width: 80px;
+  height: auto;
+}
+
+/* ===========================
+   Grid / Swiper Responsiveness
+=========================== */
+@media (max-width: 600px) {
+  .card-slider {
+    max-width: 90%;
+    padding: 8px;
+  }
+
+  .card-text,
+  .card-price {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-wrapper {
+    gap: 5px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .slide-item {
+    flex: 0 0 calc(50% - 10px); /* عمودين */
+  }
+}
+
+@media (min-width: 1025px) {
+  .slide-item {
+    flex: 0 0 calc(33.33% - 10px); /* ثلاثة عناصر جنب بعض */
+  }
+}
+
+.Grid_items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  direction: rtl;
+}
+
+/* شاشات أصغر */
+@media (max-width: 1024px) {
+  .Grid_items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .Grid_items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .Grid_items {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card-image {
+  width: 100%;
+  height: 0;
+  padding-top: 70%;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* الطبقة الفعلية للصورة */
+.card-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: filter 0.6s ease, opacity 0.6s ease;
+}
+
+/* قبل التحميل */
+.card-image.loading img {
+  filter: blur(20px) brightness(0.4); /* 🔥 Blur + غامق */
+  opacity: 1;
+}
+
+/* بعد التحميل */
+.card-image.loaded img {
+  filter: blur(0) brightness(1);
+  opacity: 1;
+}
+
+/* خلفية غامقة قبل التحميل (تمنع الفراغ) */
+.card-image.loading {
+  background: #111; /* 🔥 خلفية داكنة */
+}

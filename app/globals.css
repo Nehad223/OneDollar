@@ -1,0 +1,14 @@
+body{
+  width: 100%;
+  background-color: #030406 !important;
+  margin: 0;
+ font-family: 'Cairo', sans-serif !important; 
+  padding: 0;
+}
+.navbar-brand  span{
+  color: #CDAB50 !important;
+  font-size: clamp(15px, 5vw, 40px);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
