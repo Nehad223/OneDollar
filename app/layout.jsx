@@ -14,7 +14,6 @@ import { Cairo, Roboto } from "next/font/google";
 import GlobalLoader from "./GlobalLoader";
 const cairo = Cairo({ subsets: ["arabic"], weight: ["400","500","600","700"], variable: "--font-arabic" });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-latin" });
-
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
