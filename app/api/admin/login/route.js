@@ -6,7 +6,9 @@ export const runtime = "nodejs";
 export async function POST(req) {
   const { email, password } = await req.json();
 
-  const admin = await prisma.admin.findUnique({ where: { email } });
+  const admin = await prisma.admin.findUnique({
+    where: { email },
+  });
 
   if (!admin || admin.password !== password) {
     return NextResponse.json(
@@ -15,11 +17,13 @@ export async function POST(req) {
     );
   }
 
-  const response = NextResponse.json({ success: true });
+  const response = NextResponse.redirect(
+    new URL("/admin", req.url)
+  );
 
-  response.cookies.set("admin_token", "LOGGED_IN", {
+  response.cookies.set("admin_token", "1", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: true, 
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24,
