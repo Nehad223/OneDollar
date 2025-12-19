@@ -9,22 +9,23 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async () => {
-    setError("");
+const handleLogin = async () => {
+  setError("");
 
-    const res = await fetch("/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      redirect: "follow", // مهم
-    });
+  const res = await fetch("/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (!res.ok) {
-      const data = await res.json();
-      setError(data.error);
-    }
+  if (!res.ok) {
+    const data = await res.json();
+    setError(data.error);
+  } else {
+    window.location.replace("/admin");
+  }
+};
 
-  };
 
   return (
     <>
