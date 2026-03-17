@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { Cairo, Roboto } from "next/font/google";
-import GlobalLoader from "./GlobalLoader";
 const cairo = Cairo({ subsets: ["arabic"], weight: ["400","500","600","700"], variable: "--font-arabic" });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-latin" });
 export default function RootLayout({ children }) {
@@ -48,7 +47,7 @@ export default function RootLayout({ children }) {
         {!isAdmin && <ToastContainer position="top-center" autoClose={3000} />}
 
         {!isAdmin && (
-          <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+          <script async src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
         )}
       </body>
     </html>

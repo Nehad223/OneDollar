@@ -24,7 +24,7 @@ const Page = () => {
         hideLoader();
         
       });
-  }, [id]);
+  }, [id, hideLoader, showLoader]);
 
   if (!category) return null;
 

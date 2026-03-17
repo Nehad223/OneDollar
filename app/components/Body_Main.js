@@ -21,7 +21,7 @@ useEffect(() => {
       clearTimeout(timeout); 
       hideLoader();
     });
-}, []);
+}, [hideLoader, showLoader]);
 
 
   return (

@@ -1,9 +1,9 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import React from "react";
-import Card_Slider from './../../components/Card_Slider';
-import { CldUploadWidget } from "next-cloudinary"; 
-import "./../admin.css"; 
+import Card_Slider from "./../../components/Card_Slider";
+import { CldUploadWidget } from "next-cloudinary";
+import "./../admin.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +15,8 @@ const Edit = () => {
   const [isDeleteCatOpen, setIsDeleteCatOpen] = useState(false);
   const [categoryToDelete, setCategoryToDelete] = useState(null);
 
+  const [actionLoading, setActionLoading] = useState(false);
+
   const [editData, setEditData] = useState({
     id: null,
     name: "",
@@ -22,12 +24,27 @@ const Edit = () => {
     price: "",
   });
 
+  // -----------------------
+  // Load categories
+  // -----------------------
+  const loadCategories = async () => {
+    try {
+      const res = await fetch("/api/categories");
+      const data = await res.json();
+      setCategories(data);
+    } catch (err) {
+      console.error(err);
+      toast.error("فشل تحميل البيانات");
+    }
+  };
+
   useEffect(() => {
-    fetch("/api/categories")
-      .then(res => res.json())
-      .then(data => setCategories(data));
+    loadCategories();
   }, []);
 
+  // -----------------------
+  // Open edit modal
+  // -----------------------
   const openEditModal = (product) => {
     setEditData({
       id: product.id,
@@ -35,203 +52,304 @@ const Edit = () => {
       imageUrl: product.imageUrl,
       price: product.price,
     });
+
     setIsModalOpen(true);
   };
 
+  // -----------------------
+  // Save changes
+  // -----------------------
   const saveChanges = async () => {
+    if (actionLoading) return;
+
     try {
+      setActionLoading(true);
+
       const res = await fetch(`/api/products/${editData.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editData),
+        body: JSON.stringify({
+          ...editData,
+          price: Number(editData.price),
+        }),
       });
 
-      if (!res.ok) throw new Error("حصل خطأ أثناء حفظ التعديل");
+      if (!res.ok) throw new Error("خطأ أثناء الحفظ");
 
       setIsModalOpen(false);
 
+      await loadCategories();
 
-      fetch("/api/categories")
-        .then(res => res.json())
-        .then(data => {
-          setCategories(data);
-          toast.success("تم حفظ التعديلات بنجاح");
-        });
+      toast.success("تم حفظ التعديلات بنجاح");
     } catch (err) {
       console.error(err);
-      toast.error("فشل حفظ التعديلات — حاول مرة ثانية");
+      toast.error("فشل حفظ التعديلات");
+    } finally {
+      setActionLoading(false);
     }
   };
 
+  // -----------------------
+  // Delete product
+  // -----------------------
   const deleteProduct = async (id) => {
-    try {
-      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("حصل خطأ أثناء حذف المنتج");
+    if (actionLoading) return;
 
-      fetch("/api/categories")
-        .then(res => res.json())
-        .then(data => {
-          setCategories(data);
-          toast.success("تم حذف المنتج");
-        });
+    try {
+      setActionLoading(true);
+
+      const res = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("فشل حذف المنتج");
+
+      await loadCategories();
+
+      toast.success("تم حذف المنتج");
     } catch (err) {
       console.error(err);
       toast.error("فشل حذف المنتج");
+    } finally {
+      setActionLoading(false);
     }
   };
 
-
+  // -----------------------
+  // Delete category modal
+  // -----------------------
   const openDeleteCategory = (category) => {
     setCategoryToDelete(category);
     setIsDeleteCatOpen(true);
   };
 
   const confirmDeleteCategory = async () => {
-    if (!categoryToDelete) return;
-    const id = categoryToDelete.id;
+    if (!categoryToDelete || actionLoading) return;
 
     try {
-      const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
+      setActionLoading(true);
 
-      setCategories(prev => prev.filter(c => c.id !== id));
+      const res = await fetch(`/api/categories/${categoryToDelete.id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("فشل حذف الكاتيجوري");
+
+      setCategories((prev) =>
+        prev.filter((c) => c.id !== categoryToDelete.id)
+      );
+
       setIsDeleteCatOpen(false);
       setCategoryToDelete(null);
+
       toast.success("تم حذف الفئة بنجاح");
     } catch (err) {
       console.error(err);
-      toast.error("ما قدرنا نحذف الكاتيجوري. جرّب لاحقاً.");
+      toast.error("ما قدرنا نحذف الكاتيجوري");
+    } finally {
+      setActionLoading(false);
     }
   };
 
   return (
-    <div className='Edit'>
+    <div className="Edit">
 
-      {categories.map(category => (
+      {categories.map((category) => (
         <div key={category.id} className="category-block">
+
           <div className="category-header">
 
-        
             <div className="category-actions">
               <button
                 className="cat-delete-btn"
-                onClick={(e) => { e.stopPropagation(); openDeleteCategory(category); }}
-                title="حذف الكاتيجوري"
-                aria-label={`حذف ${category.name}`}
-              >                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <path d="M3 6h18M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6M10 11v6M14 11v6M9 6l1-3h4l1 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openDeleteCategory(category);
+                }}
+              >
+                🗑
               </button>
             </div>
+
             <h1 className="category-title">{category.name}</h1>
 
           </div>
 
-          <div className='Grid_items'>
-            {category.products.map(product => (
+          <div className="Grid_items">
+
+            {category.products.map((product) => (
               <div key={product.id} className="admin-card-container">
 
-                <Card_Slider 
-                  Img={product.imageUrl} 
-                  Text={product.name} 
-                  Price={product.price} 
+                <Card_Slider
+                  Img={product.imageUrl}
+                  Text={product.name}
+                  Price={product.price}
                 />
 
                 <div className="admin-overlay">
-                  <button className="edit-btn" onClick={() => openEditModal(product)}>تعديل</button>
-                  <button className="del-btn" onClick={() => deleteProduct(product.id)}>حذف</button>
+
+                  <button
+                    className="edit-btn"
+                    onClick={() => openEditModal(product)}
+                  >
+                    تعديل
+                  </button>
+
+                  <button
+                    className="del-btn"
+                    onClick={() => deleteProduct(product.id)}
+                  >
+                    حذف
+                  </button>
+
                 </div>
 
               </div>
             ))}
+
           </div>
+
         </div>
       ))}
 
+      {/* Edit Modal */}
 
       {isModalOpen && (
         <div className="modal-back">
+
           <div className="modal-box">
+
             <h2>تعديل المنتج</h2>
 
             <label>اسم المنتج:</label>
-            <input 
-              type="text" 
+
+            <input
+              type="text"
               value={editData.name}
-              onChange={(e) => setEditData({...editData, name: e.target.value})}
+              onChange={(e) =>
+                setEditData({ ...editData, name: e.target.value })
+              }
             />
 
             <label>الصورة:</label>
+
             <CldUploadWidget
               uploadPreset="unsigned_preset"
               onSuccess={(res) => {
-                setEditData(prev => ({
+                setEditData((prev) => ({
                   ...prev,
                   imageUrl: res.info.secure_url,
                 }));
-                toast.success("تم رفع الصورة بنجاح"); 
+
+                toast.success("تم رفع الصورة بنجاح");
               }}
             >
               {({ open }) => (
-                <button type="button" onClick={() => open()} className="upload-btn">
+                <button
+                  type="button"
+                  onClick={() => open()}
+                  className="upload-btn"
+                >
                   رفع صورة جديدة
                 </button>
               )}
             </CldUploadWidget>
 
+            {editData.imageUrl && (
+              <img
+                src={editData.imageUrl}
+                alt="preview"
+                className="preview-img"
+              />
+            )}
+
             <label>السعر:</label>
-            <input 
-              type="number" 
+
+            <input
+              type="number"
               value={editData.price}
-              onChange={(e) => setEditData({...editData, price: e.target.value})}
+              onChange={(e) =>
+                setEditData({ ...editData, price: e.target.value })
+              }
             />
 
             <div className="modal-actions">
-              <button className="save-btn" onClick={saveChanges}>حفظ</button>
-              <button className="cancel-btn" onClick={() => setIsModalOpen(false)}>إلغاء</button>
+
+              <button
+                className="save-btn"
+                onClick={saveChanges}
+                disabled={actionLoading}
+              >
+                حفظ
+              </button>
+
+              <button
+                className="cancel-btn"
+                onClick={() => setIsModalOpen(false)}
+              >
+                إلغاء
+              </button>
+
             </div>
+
           </div>
+
         </div>
       )}
 
+      {/* Delete Category Modal */}
 
-{isDeleteCatOpen && categoryToDelete && (
-  <div className="modal-back" role="dialog" aria-modal="true">
-    <div className="confirm-box">
-      <div className="confirm-icon">⚠️</div>
-      <h3>تأكيد حذف الفئة</h3>
+      {isDeleteCatOpen && categoryToDelete && (
+        <div className="modal-back">
 
-      <p className="confirm-text">
-        هل تريد حذف الفئة <strong>{categoryToDelete.name}</strong>؟
-        {categoryToDelete.products && categoryToDelete.products.length > 0 && (
-          <>
-            <br />
-            ملاحظة: تحتوي هذه الفئة على 
-            <strong> {categoryToDelete.products.length} </strong>
-            منتج/منتجات، وسيتم حذفها أيضاً.
-          </>
-        )}
-      </p>
+          <div className="confirm-box">
 
-      <div className="confirm-actions">
-        <button
-          className="confirm-btn cancel"
-          onClick={() => {
-            setIsDeleteCatOpen(false);
-            setCategoryToDelete(null);
-          }}
-        >
-          إلغاء
-        </button>
+            <div className="confirm-icon">⚠️</div>
 
-        <button className="confirm-btn danger" onClick={confirmDeleteCategory}>
-          حذف نهائي
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+            <h3>تأكيد حذف الفئة</h3>
 
-  
+            <p className="confirm-text">
+
+              هل تريد حذف الفئة
+              <strong> {categoryToDelete.name} </strong> ؟
+
+              {categoryToDelete.products?.length > 0 && (
+                <>
+                  <br />
+                  تحتوي هذه الفئة على
+                  <strong> {categoryToDelete.products.length} </strong>
+                  منتج وسيتم حذفها أيضاً
+                </>
+              )}
+
+            </p>
+
+            <div className="confirm-actions">
+
+              <button
+                className="confirm-btn cancel"
+                onClick={() => {
+                  setIsDeleteCatOpen(false);
+                  setCategoryToDelete(null);
+                }}
+              >
+                إلغاء
+              </button>
+
+              <button
+                className="confirm-btn danger"
+                onClick={confirmDeleteCategory}
+              >
+                حذف نهائي
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
       <ToastContainer position="top-center" autoClose={3000} />
 
     </div>
@@ -239,4 +357,3 @@ const Edit = () => {
 };
 
 export default Edit;
-

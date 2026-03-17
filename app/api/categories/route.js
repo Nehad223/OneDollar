@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 export const runtime = "nodejs";
+export const revalidate = 60; // cache for 60 seconds
 export async function GET() {
   const categories = await prisma.category.findMany({
     select: {

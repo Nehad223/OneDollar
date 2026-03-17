@@ -17,7 +17,16 @@
 .Admin_Login h1 {
   margin-bottom: 10px;
 }
+.preview-img{
+  width:120px;
+  height:120px;
+  margin-left: 20px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-top:10px;
+    border: 1px solid rgba(205, 171, 80, 0.25);
 
+}
 .login-card {
   width: 100%;
   max-width: 420px;

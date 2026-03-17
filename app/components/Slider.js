@@ -15,24 +15,24 @@ const Slider = ({ items, id }) => {
         modules={[Navigation]}
         navigation
         breakpoints={{
-          0: { slidesPerView: 1.2 },
-          480: { slidesPerView: 1.5 },
-          768: { slidesPerView: 2 },
+          0: { slidesPerView: 1.5 },
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 2.5 },
           1024: { slidesPerView: 3 },
           1200: { slidesPerView: 4 },
         }}
       >
-        {items.map((item) => (
+        {items.slice(0, 5).map((item) => (
           <SwiperSlide key={item.id}>
             <Card_Slider Img={item.imageUrl} Text={item.name} Price={item.price} />
           </SwiperSlide>
         ))}
 
-        {items.length > 7 && (
+        {items.length > 5 && (
           <SwiperSlide>
             <Link href={`/categories/${id}`} style={{ textDecoration: "none" }}>
               <div className="See_More">
-                عرض المزيد <span className="arrow">←</span>
+                عرض المزيد <span className="arrow" style={{ position: 'relative', top: '-5px' }}>←</span>
               </div>
             </Link>
           </SwiperSlide>

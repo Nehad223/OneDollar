@@ -6,6 +6,7 @@ import './../admin.css'
 import Navbar from "../../components/Navbar";
 export default function AdminPage() {
   const [categories, setCategories] = useState([]);
+  const [catLoading, setCatLoading] = useState(false);
   const [isCatModalOpen, setIsCatModalOpen] = useState(false);
   const [isProdModalOpen, setIsProdModalOpen] = useState(false);
   const [catName, setCatName] = useState("");
@@ -23,26 +24,44 @@ export default function AdminPage() {
     fetch("/api/products").then(res => res.json()).then(setProducts);
   }, []);
 
-  const handleAddCategory = async () => {
-    if (!catName) return toast.error("أدخل اسم الكاتيجوري");
+const handleAddCategory = async () => {
+  if (catLoading) return; 
 
+  const name = catName.trim();
+
+  if (!name) return toast.error("أدخل اسم الكاتيجوري");
+
+  if (categories.some(c => c.name.toLowerCase() === name.toLowerCase()))
+    return toast.error("هذا الكاتيجوري موجود مسبقاً");
+
+  setCatLoading(true);
+
+  try {
     const res = await fetch("/api/categories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: catName }),
+      body: JSON.stringify({ name }),
     });
 
-    if (!res.ok) return toast.error("خطأ أثناء الإضافة");
+    if (!res.ok) throw new Error();
 
     const data = await res.json();
     setCategories(prev => [...prev, data]);
+
     setCatName("");
     setIsCatModalOpen(false);
     toast.success("تمت الإضافة");
-  };
+
+  } catch {
+    toast.error("خطأ أثناء الإضافة");
+  } finally {
+    setCatLoading(false);
+  }
+};
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
+      if (loading) return; 
 
     const { name, price, categoryId, imageUrl } = prodForm;
     if (!name || !price || !categoryId || !imageUrl)
@@ -112,9 +131,13 @@ export default function AdminPage() {
               <button className="cancel" onClick={() => setIsCatModalOpen(false)}>
                 إلغاء
               </button>
-              <button className="add" onClick={handleAddCategory}>
-                إضافة
-              </button>
+<button
+  className="add"
+  onClick={handleAddCategory}
+  disabled={catLoading}
+>
+  {catLoading ? "جارٍ الإضافة..." : "إضافة"}
+</button>
             </div>
           </div>
         </div>
@@ -178,9 +201,9 @@ export default function AdminPage() {
                   إلغاء
                 </button>
 
-                <button type="submit" className="add">
-                  {loading ? "جارٍ الإضافة..." : "إضافة"}
-                </button>
+                <button type="submit" className="add" disabled={loading}>
+  {loading ? "جارٍ الإضافة..." : "إضافة"}
+</button>
               </div>
             </form>
           </div>

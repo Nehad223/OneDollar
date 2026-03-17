@@ -1,5 +1,4 @@
 
-import RootLayout from "@/app/layout";
 import './main.css';
 import Body_Main from './components/Body_Main.js';
 

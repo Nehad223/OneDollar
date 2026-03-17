@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 export const runtime = "nodejs";
+export const revalidate = 60;
 export async function GET() {
   const products = await prisma.product.findMany({
     include: { category: true },

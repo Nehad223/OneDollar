@@ -1,4 +1,3 @@
-import Navbar from './../components/Navbar';
 import './admin.css';
 import AdminPage from './components/AdminPage';
 import Edit from './components/Edit';

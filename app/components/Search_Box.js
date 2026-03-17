@@ -1,19 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
+import Image from "next/image";
 
 const Search_Box = ({ setQuery, setResults }) => {
   const pathname = usePathname();
-  const [categoryId, setCategoryId] = useState(null);
-
-  useEffect(() => {
+  const categoryId = useMemo(() => {
     const parts = pathname.split("/");
-
     if (parts[1] === "categories" && parts[2]) {
-      setCategoryId(parts[2]);   
+      return parts[2];
     } else {
-      setCategoryId(null);      
+      return null;
     }
   }, [pathname]);
 
@@ -47,7 +45,7 @@ const Search_Box = ({ setQuery, setResults }) => {
         onChange={(e) => handleSearch(e.target.value)}
       />
       <span className="icon">
-        <img src="/search.png" width="20" height="20" alt="search" />
+        <Image src="/search.png" width={20} height={20} alt="search" />
       </span>
     </div>
   );
