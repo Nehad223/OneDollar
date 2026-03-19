@@ -14,6 +14,7 @@ const Slider = ({ items, id }) => {
         spaceBetween={10}
         modules={[Navigation]}
         navigation
+        slidesPerGroup={1}
         breakpoints={{
           0: { slidesPerView: 1.5 },
           480: { slidesPerView: 2 },
